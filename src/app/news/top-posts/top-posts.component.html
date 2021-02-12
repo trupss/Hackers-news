@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row bg-light">
+        <!-- Loader when data is loading from API -->
+        <div *ngIf="isLoading" class="spinner-grow bt-loader" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="row" *ngIf="storyList.length>0 && !isLoading">
+        <!--div hide when data loading -->
+        <h1 style="margin:0 auto">Top Stories</h1>
+        <div class="col-12 col-md-12">
+            <div class="card my-2" *ngFor="let story of storyList">
+                <div class="card-body">
+                    <h4 class="card-title">{{story.title}}</h4>
+                    <h6 class="card-subtitle mb-2"> By: {{story.by}}</h6>
+                    <p class="card-text" *ngIf="story.text">{{story.text}}</p>
+                    <p class="card-text">{{story.time * 1000 | date}}</p>
+                    <a *ngIf="story.url!=undefined || story.url==''" href="{{story.url}}" class="card-link text-danger" target="_blank">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pagination on Show More -->
+    <div class="text-center py-5">
+        <button class="btn btn-lg btn-primary" (click)="showMore()" *ngIf="storyList.length>0 && !isLoading">Show More</button>
+    </div>
+</div>
